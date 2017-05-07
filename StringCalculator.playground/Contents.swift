@@ -13,11 +13,11 @@ class StringCalculator {
         
         return numbers
             .components(separatedBy: seperator)
-            .reduce(0, {
-                    guard let nextInteger = Int($1) else { return $0 }
+            .reduce(0, ({ sum, current in
+                    guard let nextInteger = Int(current) else { return sum }
                 
-                    return $0 + nextInteger
-                })
+                    return sum + nextInteger
+                }))
         
     }
 }
