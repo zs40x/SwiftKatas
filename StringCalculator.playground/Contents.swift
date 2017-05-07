@@ -9,7 +9,10 @@ class StringCalculator {
     
     func add(_ a: String, _ b: String) -> Int {
         
-        return 0
+        guard let intA = Int(a) else { return 0 }
+        guard let intB = Int(b) else { return 0 }
+        
+        return intA + intB
     }
 }
 
@@ -19,6 +22,10 @@ class StringCalculatorTest: XCTestCase {
     
     func testInitialStringsReturn0() {
         XCTAssertEqual(testInstance.add("", ""), 0)
+    }
+    
+    func testAddToStringIntsReturnsSum() {
+        XCTAssertEqual(testInstance.add("1", "1"), 2)
     }
 }
 
