@@ -7,12 +7,16 @@ var str = "Hello, playground"
 
 class StringCalculator {
     
-    func add(_ a: String, _ b: String) -> Int {
+    func add(_ numbers: String) -> Int {
         
-        guard let intA = Int(a) else { return 0 }
-        guard let intB = Int(b) else { return 0 }
+        return numbers
+            .components(separatedBy: ",")
+            .reduce(0, {
+                    guard let nextInteger = Int($1) else { return $0 }
+                
+                    return $0 + nextInteger
+                })
         
-        return intA + intB
     }
 }
 
@@ -21,11 +25,15 @@ class StringCalculatorTest: XCTestCase {
     let testInstance = StringCalculator()
     
     func testInitialStringsReturn0() {
-        XCTAssertEqual(testInstance.add("", ""), 0)
+        XCTAssertEqual(testInstance.add(""), 0)
     }
     
     func testAddToStringIntsReturnsSum() {
-        XCTAssertEqual(testInstance.add("1", "1"), 2)
+        XCTAssertEqual(testInstance.add("1,1"), 2)
+    }
+    
+    func testNonIntegerInStringIsIgnored() {
+        XCTAssertEqual(testInstance.add("1,b,3"), 4)
     }
 }
 
