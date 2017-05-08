@@ -7,13 +7,13 @@ var str = "Hello, playground"
 
 class StringCalculator {
     
-    private let seperator = ","
+    private let seperators = ",\n"
     
     func add(_ numbers: String) -> Int {
         
         return numbers
-            .components(separatedBy: seperator)
-            .reduce(0, ({ sum, current in
+                .components(separatedBy: CharacterSet(charactersIn: seperators))
+                .reduce(0, ({ sum, current in
                     guard let nextInteger = Int(current) else { return sum }
                 
                     return sum + nextInteger
@@ -40,6 +40,10 @@ class StringCalculatorTest: XCTestCase {
     
     func testSingleIntegerIsReturned() {
         XCTAssertEqual(testInstance.add("1"), 1)
+    }
+    
+    func testAddsWithNewLineAsSeperator() {
+        XCTAssertEqual(testInstance.add("2\n2"), 4)
     }
 }
 
