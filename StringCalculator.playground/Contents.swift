@@ -18,11 +18,10 @@ class StringCalculator {
         return try numbers
                 .components(separatedBy: CharacterSet(charactersIn: seperators))
                 .reduce(0, ({ sum, current in
-                    guard let nextInteger = Int(current) else { return sum }
                     
-                    if nextInteger < 0 {
-                        throw StringCalculationError.negativeNumber
-                    }
+                    guard let nextInteger = Int(current) else { return sum }
+                    guard nextInteger < 1000 else { return sum }
+                    guard nextInteger > 0 else { throw StringCalculationError.negativeNumber }
                 
                     return sum + nextInteger
                 }))
@@ -56,6 +55,10 @@ class StringCalculatorTest: XCTestCase {
     
     func testNegativeRaisesException() {
         XCTAssertThrowsError(try testInstance.add("0,-1,1"))
+    }
+    
+    func testIgnoresNumbersGreaterThan1k() {
+        XCTAssertEqual(try testInstance.add("2,1001"), 2)
     }
 }
 
