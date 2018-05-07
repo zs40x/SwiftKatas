@@ -1,5 +1,10 @@
 //: Playground - noun: a place where people can play
+//# Supermarket pricing Kata - http://codekata.com/kata/kata01-supermarket-pricing/
 
-import UIKit
+import Foundation
+import XCTest
 
-var str = "Hello, playground"
+
+let testObserver = TestObserver()
+XCTestObservationCenter.shared.addTestObserver(testObserver)
+SupermarketPricingTests.defaultTestSuite.run()
